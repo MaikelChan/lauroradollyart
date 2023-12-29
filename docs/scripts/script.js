@@ -1,5 +1,5 @@
-let contents = document.getElementById("contents");
-let title = document.getElementById("title");
+let contents = document.getElementById("home-center");
+let title = document.getElementById("home-title");
 let canvas = document.getElementById("bgCanvas");
 let ctx = canvas.getContext("2d");
 
@@ -32,9 +32,9 @@ function Render(time) {
     const waveAmplitude = 20;
     const waveFrequency = 0.01;
     const speedTop = 1;
-    const speedBottom = 1.5;
-    const distanceFromContent = 100;
-    const height = Math.max(distanceFromContent, (ctx.canvas.height - contents.clientHeight) * 0.5 - distanceFromContent);
+    const speedBottom = -1.5;
+    const distanceFromContent = 50;
+    const height = (ctx.canvas.height * 0.5) - 300;//Math.max(distanceFromContent, (ctx.canvas.height - contents.clientHeight) * 0.5 - distanceFromContent);
 
     let x = 0;
 
@@ -65,7 +65,7 @@ function Render(time) {
     ctx.moveTo(0, ctx.canvas.height);
 
     for (; ;) {
-        let y = Math.sin((x * waveFrequency) - (animOffset * speedBottom)) * waveAmplitude + (ctx.canvas.height - height);
+        let y = Math.sin((x * waveFrequency) + (animOffset * speedBottom)) * waveAmplitude + (ctx.canvas.height - height);
         ctx.lineTo(x, y);
 
         if (x > ctx.canvas.width) break;
@@ -83,6 +83,7 @@ function Render(time) {
     ctx.fillStyle = '#F1FFD6';
 
     let titleRect = title.getBoundingClientRect();
+    titleRect.y += 20;
 
     DrawStar(titleRect.x - 30, titleRect.y + 50, animOffset * -1.25, 5, 8, 2.5);
     DrawStar(titleRect.x - 70, titleRect.y + 80, animOffset * -1.0, 5, 6, 2.5);
@@ -114,4 +115,13 @@ function DrawStar(x, y, angle, sides, radius, inset) {
     ctx.closePath();
     ctx.fill();
     ctx.restore();
+}
+
+// Social tracking
+
+function TrackSocial(socialUrl)
+{
+    if (typeof umami !== 'undefined') {
+        umami.track(props => ({ ...props, url: socialUrl }));
+    }
 }
