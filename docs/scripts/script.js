@@ -1,5 +1,5 @@
-let contents = document.getElementById("home-center");
-let title = document.getElementById("home-title");
+let title = document.getElementById("home-title-measure-span");
+let navMenu = document.getElementById("home-nav");
 let canvas = document.getElementById("bgCanvas");
 let ctx = canvas.getContext("2d");
 
@@ -34,17 +34,20 @@ function Render(time) {
     const speedTop = 1;
     const speedBottom = -1.5;
     const distanceFromContent = 50;
-    const height = (ctx.canvas.height * 0.5) - 300;//Math.max(distanceFromContent, (ctx.canvas.height - contents.clientHeight) * 0.5 - distanceFromContent);
+    const titleRect = title.getBoundingClientRect();
+    const navMenuRect = navMenu.getBoundingClientRect();
 
     let x = 0;
 
     // Top wave
 
+    const topWaveY = titleRect.y - 30;
+
     ctx.beginPath();
     ctx.moveTo(0, 0);
 
     for (; ;) {
-        let y = Math.sin((x * waveFrequency) + (animOffset * speedTop)) * waveAmplitude + height;
+        let y = Math.sin((x * waveFrequency) + (animOffset * speedTop)) * waveAmplitude + topWaveY;
         ctx.lineTo(x, y);
 
         if (x > ctx.canvas.width) break;
@@ -61,11 +64,13 @@ function Render(time) {
 
     x = 0;
 
+    const bottomWaveY = navMenuRect.y + navMenuRect.height + 60;
+
     ctx.beginPath();
     ctx.moveTo(0, ctx.canvas.height);
 
     for (; ;) {
-        let y = Math.sin((x * waveFrequency) + (animOffset * speedBottom)) * waveAmplitude + (ctx.canvas.height - height);
+        let y = Math.sin((x * waveFrequency) + (animOffset * speedBottom)) * waveAmplitude + bottomWaveY;
         ctx.lineTo(x, y);
 
         if (x > ctx.canvas.width) break;
@@ -82,20 +87,19 @@ function Render(time) {
 
     ctx.fillStyle = '#F1FFD6';
 
-    let titleRect = title.getBoundingClientRect();
-    titleRect.y += 20;
+    const titleY = titleRect.y + (titleRect.height * 0.5) - 90;
 
-    DrawStar(titleRect.x - 30, titleRect.y + 50, animOffset * -1.25, 5, 8, 2.5);
-    DrawStar(titleRect.x - 70, titleRect.y + 80, animOffset * -1.0, 5, 6, 2.5);
-    DrawStar(titleRect.x - 50, titleRect.y + 110, animOffset * -0.85, 5, 4, 2.5);
-    DrawStar(titleRect.x - 20, titleRect.y + 100, animOffset * -0.7, 5, 3.5, 2.5);
-    DrawStar(titleRect.x - 30, titleRect.y + 140, animOffset * -0.5, 5, 5, 2.5);
+    DrawStar(titleRect.x - 30, titleY + 50, animOffset * -1.25, 5, 8, 2.5);
+    DrawStar(titleRect.x - 70, titleY + 80, animOffset * -1.0, 5, 6, 2.5);
+    DrawStar(titleRect.x - 50, titleY + 110, animOffset * -0.85, 5, 4, 2.5);
+    DrawStar(titleRect.x - 20, titleY + 100, animOffset * -0.7, 5, 3.5, 2.5);
+    DrawStar(titleRect.x - 30, titleY + 140, animOffset * -0.5, 5, 5, 2.5);
 
-    DrawStar(titleRect.x + titleRect.width + 20, titleRect.y + 70, animOffset * 0.5, 5, 4, 2.5);
-    DrawStar(titleRect.x + titleRect.width + 45, titleRect.y + 75, animOffset * 0.7, 5, 3.5, 2.5);
-    DrawStar(titleRect.x + titleRect.width + 60, titleRect.y + 100, animOffset * 0.8, 5, 5, 2.5);
-    DrawStar(titleRect.x + titleRect.width + 25, titleRect.y + 120, animOffset * 1.05, 5, 4, 2.5);
-    DrawStar(titleRect.x + titleRect.width + 55, titleRect.y + 150, animOffset * 1.3, 5, 8, 2.5);
+    DrawStar(titleRect.x + titleRect.width + 20, titleY + 60, animOffset * 0.5, 5, 4, 2.5);
+    DrawStar(titleRect.x + titleRect.width + 45, titleY + 65, animOffset * 0.7, 5, 3.5, 2.5);
+    DrawStar(titleRect.x + titleRect.width + 60, titleY + 90, animOffset * 0.8, 5, 5, 2.5);
+    DrawStar(titleRect.x + titleRect.width + 25, titleY + 110, animOffset * 1.05, 5, 4, 2.5);
+    DrawStar(titleRect.x + titleRect.width + 55, titleY + 140, animOffset * 1.3, 5, 8, 2.5);
 
     requestAnimationFrame(Render);
 }

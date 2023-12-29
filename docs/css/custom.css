@@ -18,8 +18,8 @@
     font-family: AmaticSC;
     font-size: 6em;
     margin: -0.3em 0 -0.2em 0;
-    white-space: nowrap;
     opacity: 0.99;
+    line-height: 1.0;
 }
 
 #home-subtitle {
@@ -27,7 +27,7 @@
     font-family: Satisfy;
     font-size: 1.6em;
     font-weight: normal;
-    margin-top: 0;
+    margin-top: 1.0em;
     margin-bottom: 1.5em;
     line-height: normal;
     font-style: normal;
