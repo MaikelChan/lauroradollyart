@@ -33,15 +33,16 @@ function Render(time) {
     const waveFrequency = 0.01;
     const speedTop = 1;
     const speedBottom = -1.5;
-    const distanceFromContent = 50;
     const titleRect = title.getBoundingClientRect();
     const navMenuRect = navMenu.getBoundingClientRect();
+    const minWaveHeight = ctx.canvas.height * 0.2;
 
     let x = 0;
 
     // Top wave
 
-    const topWaveY = titleRect.y - 30;
+    let topWaveY = titleRect.y - 30;
+    topWaveY = Math.max(topWaveY, minWaveHeight);
 
     ctx.beginPath();
     ctx.moveTo(0, 0);
@@ -64,7 +65,8 @@ function Render(time) {
 
     x = 0;
 
-    const bottomWaveY = navMenuRect.y + navMenuRect.height + 60;
+    let bottomWaveY = navMenuRect.y + navMenuRect.height + 60;
+    bottomWaveY = Math.min(bottomWaveY, ctx.canvas.height - minWaveHeight);
 
     ctx.beginPath();
     ctx.moveTo(0, ctx.canvas.height);
