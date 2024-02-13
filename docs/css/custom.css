@@ -60,6 +60,18 @@
     box-shadow: none;
 }
 
+.hdr-social {
+    margin-left: 1.2em;
+}
+
+.hdr-social a {
+    margin-left: 0.2em;
+}
+
+#share-btn {
+    margin-left: 1.0em;
+}
+
 /* list.html */
 
 .posts-list {
